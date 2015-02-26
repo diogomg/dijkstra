@@ -1,4 +1,4 @@
-#define INF 2000
+#define INF 65536
 
 typedef struct edge{
     int head_vertex, cost;
