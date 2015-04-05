@@ -23,7 +23,7 @@ node* heapFindParentInsertNode(heap *root);
 
 void heapDecreaseKey(heap *root, node *heap_node, keyType key);
 
-node* heapInsert(heap *root, keyType key, int vertex);
+void heapInsert(heap *root, node *heap_node);
 
 void heapSwapLeft(heap *root, node *heap_node);
 
@@ -33,6 +33,6 @@ void heapIncreseKey(heap *root, node *heap_node, keyType key);
 
 node* heapFindLastNode(heap *root);
 
-node *heapExtractMin(heap *root);
+node* heapExtractMin(heap *root);
 
 void heapPrint(node *root);

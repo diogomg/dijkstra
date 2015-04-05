@@ -1,6 +1,6 @@
 #include "heap.h"
 
-#define INF 2000
+#define INF 100000
 
 typedef struct edge{
     int head_vertex, cost;
@@ -8,15 +8,14 @@ typedef struct edge{
 } edge;
 
 typedef struct vertex{
-    int predecessor;
-    int cost;
-    node *heap_node;
+    node heap_node;
+    int predecessor, key;
     edge *adjacent;
 } vertex;
 
 void freeGraph(vertex *vertices, int size);
 
-void initGraph(vertex *vertices, int size);
+void initGraph(vertex *vertices, int size, int source);
 
 void showVertices(vertex *vertices, int size);
 

@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include "graph.h"
 
-void initGraph(vertex *vertices, int size){
+void initGraph(vertex *vertices, int size, int source){
 
     int i;
-    vertices[0].predecessor = 0;
-    vertices[0].adjacent = NULL;
-    vertices[0].heap_node = NULL;
-    vertices[0].cost = 0;
-    for(i=1; i<size; i++) {
+    for(i=0; i<size; i++) {
         vertices[i].predecessor = -1;
         vertices[i].adjacent = NULL;
-        vertices[i].heap_node = NULL;
-        vertices[i].cost = INF;
+        vertices[i].key = i;
+        vertices[i].heap_node.key = INF;
+        vertices[i].heap_node.parent = NULL;
+        vertices[i].heap_node.left = NULL;
+        vertices[i].heap_node.right = NULL;
     }
+    vertices[source].heap_node.key = 0;
 }
 
 void showVertices(vertex *vertices, int size){
@@ -43,7 +43,7 @@ void printGraph(vertex *vertices, int size){
     edge *aux;
     for (i = 0; i < size; i++) {
         aux = vertices[i].adjacent;
-        printf("vertex: %d\t predecessor: %d\tcost: %d\n", i, vertices[i].predecessor, vertices[i].cost);
+        printf("vertex: %d\t predecessor: %d\tcost: %d\n", i, vertices[i].predecessor, vertices[i].heap_node.key);
         while(aux){
             printf("Edge from %d to %d having %d as cost\n", i, aux->head_vertex, aux->cost);
             aux = aux->next;

@@ -3,17 +3,20 @@
 
 int main(){
 
-    int n_ver, n_edge, i, from, to, cost, u=INF;
+    int n_ver, n_edge, i, from, to, cost, source, u=INF;
+    float f_cost;
     vEB *veb = NULL;
     char opt;
 
-    scanf("%d%d", &n_ver, &n_edge);
+    scanf("%d%d%d", &n_ver, &n_edge, &source);
     vertex *vertices = (vertex*)calloc(n_ver, sizeof(vertex));
-    initGraph(vertices, n_ver);
-    veb = vEB_tree_insert(veb, 0, 0, u);
+    initGraph(vertices, n_ver, source);
+    veb = vEB_tree_insert(veb, 0, source, u);
     for(i=0; i<n_edge; i++){
-        scanf("%d%d%d", &from, &to, &cost);
+        scanf("%d%d%f", &from, &to, &f_cost);
+        cost = (int)(f_cost*100);
         insertEdge(vertices, from, to, cost);
+        insertEdge(vertices, to, from, cost);
     }
     dijkstra(vertices, &veb, u);
     for (i=0; i<n_ver; i++) {

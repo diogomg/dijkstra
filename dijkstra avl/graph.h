@@ -1,4 +1,9 @@
-#define INF 65536
+#ifndef _GRAPH_H_
+#define _GRAPH_H_
+
+#include "avl.h"
+
+#define INF 100000
 
 typedef struct edge{
     int head_vertex, cost;
@@ -6,8 +11,9 @@ typedef struct edge{
 } edge;
 
 typedef struct vertex{
-    int predecessor;
-    int cost;
+    avl_node cand_tree_node;
+    int key;
+    struct vertex *predecessor;
     edge *adjacent;
 } vertex;
 
@@ -26,3 +32,5 @@ void removeEdge(vertex *vertices, int tail, int head);
 void insertEdge(vertex *vertices, int tail, int head, int cost);
 
 int checkEdge(vertex *vertices, int tail, int head);
+
+#endif

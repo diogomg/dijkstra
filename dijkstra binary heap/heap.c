@@ -95,27 +95,28 @@ void heapDecreaseKey(heap *root, node *heap_node, keyType key){
     }
 }
 
-node* heapInsert(heap *root, keyType key, int vertex){
-    node *new_node, *parent = NULL;
-    new_node = heapCreateNode(key, vertex);
+void heapInsert(heap *root, node *heap_node){
+    
+    node *parent = NULL;
+    heap_node->parent = heap_node->left = heap_node->right = NULL;
+
     if(!root->count){
-        root->root_node = root->last_node = new_node;
+        root->root_node = root->last_node = heap_node;
         root->count++;
     }
     else{
         parent = heapFindParentInsertNode(root);
         if(parent->left){
-            parent->right = new_node;
+            parent->right = heap_node;
         }
         else{
-            parent->left = new_node;
+            parent->left = heap_node;
         }
-        new_node->parent = parent;
+        heap_node->parent = parent;
         root->count++;
-        root->last_node = new_node;
-        heapDecreaseKey(root, new_node, new_node->key);
+        root->last_node = heap_node;
+        heapDecreaseKey(root, heap_node, heap_node->key);
     }
-    return new_node;
 }
 
 

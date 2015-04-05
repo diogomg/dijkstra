@@ -6,18 +6,19 @@ void initGraph(vertex *vertices, int size, int source){
 
     int i;
     for(i=0; i<size; i++) {
-        vertices[i].predecessor = -1;
+        vertices[i].predecessor = NULL;
+        vertices[i].key = i;
         vertices[i].adjacent = NULL;
-        vertices[i].cost = INF;
+        vertices[i].cand_tree_node.key = INF;
     }
-    vertices[source].cost = 0;
+    vertices[source].cand_tree_node.key = 0;
 }
 
 void showVertices(vertex *vertices, int size){
 
     int i;
     for(i = 0; i < size; i++){
-        printf("vertex: %d\tpredecessor: %d\n", i, vertices[i].predecessor);
+        printf("vertex: %d\tpredecessor: %d\n", i, vertices[i].predecessor->key);
     }
 }
 
@@ -39,7 +40,7 @@ void printGraph(vertex *vertices, int size){
     edge *aux;
     for (i = 0; i < size; i++) {
         aux = vertices[i].adjacent;
-        printf("vertex: %d\t predecessor: %d\tcost: %d\n", i, vertices[i].predecessor, vertices[i].cost);
+        printf("vertex: %d\t predecessor: %d\tcost: %d\n", i, vertices[i].predecessor->key, vertices[i].cand_tree_node.key);
         while(aux){
             printf("Edge from %d to %d having %d as cost\n", i, aux->head_vertex, aux->cost);
             aux = aux->next;

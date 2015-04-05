@@ -1,26 +1,26 @@
 #include "dijkstra.h"
 
 void dijkstra(vertex *vertices, heap *root){
-	int min_vertex, old_cost, new_cost, adjacent;
+	int old_cost, new_cost, adjacent;
 	node *min_node;
+	vertex *min_vertex;
 	while(root->root_node){
 		min_node = heapExtractMin(root);
-		min_vertex = min_node->vertex;
-		free(min_node);
-		vertices[min_vertex].heap_node = NULL;
-		edge *aux = vertices[min_vertex].adjacent;
+		min_vertex = (vertex*)min_node;
+		edge *aux = min_vertex->adjacent;
 		while(aux){
 			adjacent = aux->head_vertex;
-			new_cost = vertices[min_vertex].cost + aux->cost;
-			if(new_cost < vertices[adjacent].cost){
-				if(!vertices[adjacent].heap_node){
-					vertices[adjacent].heap_node = heapInsert(root, new_cost, adjacent);
+			new_cost = min_vertex->heap_node.key + aux->cost;
+			if(new_cost < vertices[adjacent].heap_node.key){
+				if(vertices[adjacent].heap_node.key == INF){
+					vertices[adjacent].heap_node.key = new_cost;
+					heapInsert(root, &(vertices[adjacent].heap_node));
 				}
 				else{
-					heapDecreaseKey(root, vertices[adjacent].heap_node, new_cost);
+					heapDecreaseKey(root, &(vertices[adjacent].heap_node), new_cost);
 				}
-				vertices[adjacent].predecessor = min_vertex;
-				vertices[adjacent].cost = new_cost;
+				vertices[adjacent].predecessor = min_vertex->key;
+				vertices[adjacent].heap_node.key = new_cost;
 			}
 			aux = aux->next;
 		}
