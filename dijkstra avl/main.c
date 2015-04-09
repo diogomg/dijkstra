@@ -11,7 +11,8 @@ int main(){
     struct avl_tree cand_tree;
     avl_init(&cand_tree);
 
-    scanf("%d%d%d", &n_ver, &n_edge, &source);
+    scanf("%d%d", &n_ver, &n_edge);
+    source = 0;
     vertex *vertices = (vertex*)calloc(n_ver, sizeof(vertex));
     initGraph(vertices, n_ver, source);
     vertices[source].cand_tree_node.key = 0;
@@ -19,7 +20,7 @@ int main(){
 
     for(i=0; i<n_edge; i++){
         scanf("%d%d%f", &from, &to, &f_cost);
-        cost = (int)(f_cost*100);
+        cost = (int)(f_cost);
         insertEdge(vertices, from, to, cost);
         insertEdge(vertices, to, from, cost);
     }

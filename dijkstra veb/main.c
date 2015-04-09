@@ -8,13 +8,14 @@ int main(){
     vEB *veb = NULL;
     char opt;
 
-    scanf("%d%d%d", &n_ver, &n_edge, &source);
+    scanf("%d%d", &n_ver, &n_edge);
+    source = 0;
     vertex *vertices = (vertex*)calloc(n_ver, sizeof(vertex));
     initGraph(vertices, n_ver, source);
     veb = vEB_tree_insert(veb, 0, source, u);
     for(i=0; i<n_edge; i++){
         scanf("%d%d%f", &from, &to, &f_cost);
-        cost = (int)(f_cost*100);
+        cost = (int)(f_cost);
         insertEdge(vertices, from, to, cost);
         insertEdge(vertices, to, from, cost);
     }

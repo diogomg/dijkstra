@@ -3,7 +3,7 @@ CC = gcc
 all: compile clean run
 
 compile: main.c graph.c avl.c
-	$(CC) -g main.c dijkstra.c graph.c avl.c -o dijkstra
+	$(CC) main.c dijkstra.c graph.c avl.c -o dijkstra
 
 valgrind: compile clean
 	valgrind --tool=memcheck --leak-check=yes -v ./dijkstra
