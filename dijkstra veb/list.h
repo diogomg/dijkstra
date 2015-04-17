@@ -1,3 +1,6 @@
+#ifndef _LIST_H
+#define _LIST_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -19,7 +22,7 @@ void insertAfter(listNode **node, keyType key);
 
 void insertBefore(listNode **node, keyType key);
 
-void removeByKey(listNode **node, keyType key);
+void removeByKey(listNode **node, listNode *vertexNode);
 
 void removeNode(listNode **node);
 
@@ -30,3 +33,5 @@ void printReverse(listNode *node);
 void merge(listNode **first_list, listNode **second_list);
 
 int countElements(listNode *node);
+
+#endif

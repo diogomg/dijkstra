@@ -1,11 +1,11 @@
 CC = gcc
 
-all: compile clean run
+all: compile run
 
 compile: main.c graph.c avl.c
 	$(CC) main.c dijkstra.c graph.c avl.c -o dijkstra
 
-valgrind: compile clean
+valgrind: compile
 	valgrind --tool=memcheck --leak-check=yes -v ./dijkstra
 
 test: test.c graph.c avl.c

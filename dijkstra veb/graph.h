@@ -1,4 +1,8 @@
+#ifndef _GRAPH_H
+#define _GRAPH_H
+
 #define INF 65536
+#include "list.h"
 
 typedef struct edge{
     int head_vertex, cost;
@@ -6,6 +10,7 @@ typedef struct edge{
 } edge;
 
 typedef struct vertex{
+    listNode node;
     int predecessor;
     int cost;
     edge *adjacent;
@@ -26,3 +31,5 @@ void removeEdge(vertex *vertices, int tail, int head);
 void insertEdge(vertex *vertices, int tail, int head, int cost);
 
 int checkEdge(vertex *vertices, int tail, int head);
+
+#endif

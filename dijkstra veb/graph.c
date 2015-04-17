@@ -9,6 +9,7 @@ void initGraph(vertex *vertices, int size, int source){
         vertices[i].predecessor = -1;
         vertices[i].adjacent = NULL;
         vertices[i].cost = INF;
+        (vertices[i].node).key = i;
     }
     vertices[source].cost = 0;
 }

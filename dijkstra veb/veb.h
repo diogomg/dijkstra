@@ -1,3 +1,6 @@
+#ifndef _VEB_H
+#define _VEB_H
+
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,7 +19,7 @@ int low(int x, int u);
 
 int vEB_tree_extract_min(vEB **veb, int u);
 
-int vEB_tree_decrease_key(vEB **veb, int old_cost, int new_cost, int ver, int u);
+int vEB_tree_decrease_key(vEB **veb, int old_cost, int new_cost,  listNode *vertexNode, int u);
 
 vEB* vEB_tree_member(vEB *veb, int x);
 
@@ -32,6 +35,8 @@ vEB* vEB_tree_insert(vEB *veb, int value, int key, int u);
 
 vEB* vEB_tree_add(vEB *veb, int x, listNode *list, int u);
 
-vEB* vEB_tree_delete(vEB *veb, int x, int ver, int u);
+vEB* vEB_tree_delete(vEB *veb, int x, listNode *vertexNode, int u);
 
 void vEB_tree_print(vEB *veb);
+
+#endif

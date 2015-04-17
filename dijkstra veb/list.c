@@ -57,19 +57,23 @@ void insertBefore(listNode **node, keyType key){
     }
 }
 
-void removeByKey(listNode **node, keyType key){
-    listNode *aux = member(node, key);
-    if(aux == NULL)
-        return;
-    if(aux == *node && aux->next == *node){
+void removeByKey(listNode **node, listNode *vertexNode){
+
+    int nodeFromSummary = 0;
+    if(!vertexNode){
+        nodeFromSummary = 1;
+        vertexNode = member(node, 1);
+    }
+    if(vertexNode == *node && vertexNode->next == *node){
         *node = NULL;
     }
     else{
-        aux->prev->next = aux->next;
-        aux->next->prev = aux->prev;
-        *node = aux->next;
+        vertexNode->prev->next = vertexNode->next;
+        vertexNode->next->prev = vertexNode->prev;
+        *node = vertexNode->next;
     }
-    free(aux);
+    if(nodeFromSummary)
+        free(vertexNode);
 }
 
 void removeNode(listNode **node){
