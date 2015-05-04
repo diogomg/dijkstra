@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+#include "graph.h"
 
 typedef struct vEB{
     int u;
@@ -17,7 +18,7 @@ int high(int x, int u);
 
 int low(int x, int u);
 
-int vEB_tree_extract_min(vEB **veb, int u);
+vertex *vEB_tree_extract_min(vEB **veb, int u);
 
 int vEB_tree_decrease_key(vEB **veb, int old_cost, int new_cost,  listNode *vertexNode, int u);
 
@@ -25,7 +26,7 @@ vEB* vEB_tree_member(vEB *veb, int x);
 
 int vEB_tree_Minimum(vEB *veb);
 
-int vEB_tree_Minimum_vertex(vEB *veb);
+vertex* vEB_tree_Minimum_vertex(vEB *veb);
 
 int vEB_tree_Maximum(vEB *veb);
 

@@ -54,8 +54,8 @@ int vEB_tree_Minimum(vEB *veb){
     return veb->min;
 }
 
-int vEB_tree_Minimum_vertex(vEB *veb){
-    return (veb->listMin)->key;
+vertex* vEB_tree_Minimum_vertex(vEB *veb){
+    return (vertex*)(veb->listMin);
 }
 
 int vEB_tree_Maximum(vEB *veb){
@@ -69,14 +69,23 @@ vEB* vEB_tree_add(vEB *veb, int x, listNode *list, int u){
         veb->min = veb->max = x;
         veb->u = u;
         veb->listMin = veb->listMax = list;
+        veb->summary = NULL;
         if(u > 2){
-            veb->summary = NULL;
             veb->cluster = (vEB**)calloc(sqrt(u),sizeof(vEB*));
         }
         else{
-            veb->summary = NULL;
             veb->cluster = NULL;
         }
+        return veb;
+    }
+    else if(veb->min < x && x < veb->max){
+        int high_value = high(x, u), square_of_u = sqrt(u);
+        if(veb->cluster[high_value] == NULL){
+            listNode *node = initNode(1);
+            veb->summary = vEB_tree_add(veb->summary, high_value,  node, square_of_u);
+        }
+        veb->cluster[high_value] =
+        vEB_tree_add(veb->cluster[high_value], low(x, u), list, square_of_u);
     }
     else if(veb->min == x){
         merge(&(veb->listMin), &list);
@@ -148,6 +157,13 @@ vEB* vEB_tree_delete(vEB *veb, int x, listNode *vertexNode, int u){
             free(veb);
             return NULL;
         }
+    }
+    else if(veb->min < x && x < veb->max && veb->listMin && veb->listMax){
+        int high_value = high(x, u);
+        int square_value = sqrt(u);
+        veb->cluster[high_value] = vEB_tree_delete(veb->cluster[high_value], low(x, u), vertexNode, square_value);
+        if(veb->cluster[high_value] == NULL)
+            veb->summary = vEB_tree_delete(veb->summary, high_value, NULL, square_value);
     }
     else if(u == 2){
         if(x == 0){
@@ -225,12 +241,12 @@ veb->summary = vEB_tree_delete(veb->summary, last_cluster, NULL, square_value);
     return veb;
 }
 
-int vEB_tree_extract_min(vEB **veb, int u){
+vertex *vEB_tree_extract_min(vEB **veb, int u){
 
     if(!*veb)
-        return -1;
+        return NULL;
     int min_value = vEB_tree_Minimum(*veb);
-    int min_vertex = vEB_tree_Minimum_vertex(*veb);
+    vertex *min_vertex = vEB_tree_Minimum_vertex(*veb);
     *veb = vEB_tree_delete(*veb, min_value, (*veb)->listMin, u);
     return min_vertex;
 }

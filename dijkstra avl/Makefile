@@ -3,17 +3,16 @@ CC = gcc
 all: compile run
 
 compile: main.c graph.c avl.c
-	$(CC) main.c dijkstra.c graph.c avl.c -o dijkstra
+	$(CC) -g main.c dijkstra.c graph.c avl.c -o dijkstra
 
 valgrind: compile
 	valgrind --tool=memcheck --leak-check=yes -v ./dijkstra
 
-test: test.c graph.c avl.c
-	$(CC) -fprofile-arcs -ftest-coverage -g test.c dijkstra.c graph.c avl.c -o test
-	./test
+test: main.c graph.c avl.c
+	$(CC) -fprofile-arcs -ftest-coverage -g main.c dijkstra.c graph.c avl.c -o dijkstra
 
-coverage: dijkstra.gcda
-	gcov dijkstra.gcda
+coverage: main.gcda dijkstra.gcda graph.gcda avl.gcda
+	gcov main.gcda dijkstra.gcda graph.gcda avl.gcda
 
 run:
 	./dijkstra
