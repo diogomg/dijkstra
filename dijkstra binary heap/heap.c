@@ -7,10 +7,9 @@ heap* heapCreateRoot(){
     return new_heap;
 }
 
-node* heapCreateNode(keyType key, int vertex){
+node* heapCreateNode(keyType key){
     node *new_node = (node*)malloc(sizeof(node));
     new_node->key = key;
-    new_node->vertex = vertex;
     new_node->parent = new_node->left = new_node->right = NULL;
     return new_node;
 }
@@ -96,7 +95,7 @@ void heapDecreaseKey(heap *root, node *heap_node, keyType key){
 }
 
 void heapInsert(heap *root, node *heap_node){
-    
+
     node *parent = NULL;
     heap_node->parent = heap_node->left = heap_node->right = NULL;
 

@@ -6,16 +6,17 @@ int main(){
     int n_ver, n_edge, i, from, to, cost, source, u=INF;
     float f_cost;
     vEB *veb = NULL;
-    char opt;
 
     // freopen("../ger_in.txt","r", stdin);
-    n_ver = 20000;
-    vertex *vertices = (vertex*)calloc(n_ver, sizeof(vertex));
+    // freopen("../in.txt","r", stdin);
+    n_ver = 355;
+    vertex *vertices;
 
     while(scanf("%d%d", &n_ver, &n_edge) != EOF){
+        vertices = (vertex*)calloc(n_ver, sizeof(vertex));
         scanf("%d%d%f", &from, &to, &f_cost);
         cost = (int)(f_cost);
-        source = from;
+        source = 0;
         initGraph(vertices, n_ver, source);
         insertEdge(vertices, from, to, cost);
         // insertEdge(vertices, to, from, cost);

@@ -6,7 +6,7 @@ typedef int keyType;
 
 typedef struct node{
     keyType key;
-    int vertex;
+    //int vertex;
     struct node *parent, *left, *right;
 }node;
 
@@ -17,7 +17,7 @@ typedef struct heap{
 
 heap* heapCreateRoot();
 
-node* heapCreateNode(keyType key, int vertex);
+node* heapCreateNode(keyType key);
 
 node* heapFindParentInsertNode(heap *root);
 

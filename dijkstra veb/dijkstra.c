@@ -4,8 +4,8 @@ void dijkstra(vertex *vertices, vEB **V, int u){
 	int old_cost, new_cost, adjacent;
 	vertex *min_vertex, *adjacent_vertex;
 	listNode *node;
-	min_vertex = vEB_tree_extract_min(V, u);
-	do{
+	while(*V){
+		min_vertex = vEB_tree_extract_min(V, u);
 		edge *aux = min_vertex->adjacent;
 		while(aux){
 			adjacent = aux->head_vertex;
@@ -27,6 +27,6 @@ void dijkstra(vertex *vertices, vEB **V, int u){
 			}
 			aux = aux->next;
 		}
-		min_vertex = vEB_tree_extract_min(V, u);
-	}while(*V);
+	}
+	// vEB_tree_print(*V);
 }

@@ -63,7 +63,6 @@ int vEB_tree_Maximum(vEB *veb){
 }
 
 vEB* vEB_tree_add(vEB *veb, int x, listNode *list, int u){
-
     if(!veb){
         veb = (vEB*)malloc(sizeof(vEB));
         veb->min = veb->max = x;
@@ -78,15 +77,14 @@ vEB* vEB_tree_add(vEB *veb, int x, listNode *list, int u){
         }
         return veb;
     }
-    else if(veb->min < x && x < veb->max){
-        int high_value = high(x, u), square_of_u = sqrt(u);
-        if(veb->cluster[high_value] == NULL){
-            listNode *node = initNode(1);
-            veb->summary = vEB_tree_add(veb->summary, high_value,  node, square_of_u);
-        }
-        veb->cluster[high_value] =
-        vEB_tree_add(veb->cluster[high_value], low(x, u), list, square_of_u);
-    }
+    // else if(veb->min < x && x < veb->max){
+    //     int high_value = high(x, u), square_of_u = sqrt(u);
+    //     if(veb->cluster[high_value] == NULL){
+    //         listNode *node = initNode(1);
+    //         veb->summary = vEB_tree_add(veb->summary, high_value,  node, square_of_u);
+    //     }
+    //     veb->cluster[high_value] = vEB_tree_add(veb->cluster[high_value], low(x, u), list, square_of_u);
+    // }
     else if(veb->min == x){
         merge(&(veb->listMin), &list);
         if(veb->max == x){
@@ -126,8 +124,7 @@ vEB* vEB_tree_add(vEB *veb, int x, listNode *list, int u){
                 listNode *node = initNode(1);
                 veb->summary = vEB_tree_add(veb->summary, high_value,  node, square_of_u);
             }
-            veb->cluster[high_value] =
-            vEB_tree_add(veb->cluster[high_value], low(x, u), list, square_of_u);
+            veb->cluster[high_value] = vEB_tree_add(veb->cluster[high_value], low(x, u), list, square_of_u);
         }
     }
     return veb;
@@ -158,13 +155,13 @@ vEB* vEB_tree_delete(vEB *veb, int x, listNode *vertexNode, int u){
             return NULL;
         }
     }
-    else if(veb->min < x && x < veb->max && veb->listMin && veb->listMax){
-        int high_value = high(x, u);
-        int square_value = sqrt(u);
-        veb->cluster[high_value] = vEB_tree_delete(veb->cluster[high_value], low(x, u), vertexNode, square_value);
-        if(veb->cluster[high_value] == NULL)
-            veb->summary = vEB_tree_delete(veb->summary, high_value, NULL, square_value);
-    }
+    // else if(veb->min < x && x < veb->max && veb->listMin && veb->listMax){
+    //     int high_value = high(x, u);
+    //     int square_value = sqrt(u);
+    //     veb->cluster[high_value] = vEB_tree_delete(veb->cluster[high_value], low(x, u), vertexNode, square_value);
+    //     if(veb->cluster[high_value] == NULL)
+    //         veb->summary = vEB_tree_delete(veb->summary, high_value, NULL, square_value);
+    // }
     else if(u == 2){
         if(x == 0){
             if(veb->listMin != NULL){
